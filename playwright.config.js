@@ -29,7 +29,7 @@ export default defineConfig({
   // Configurações gerais
   use: {
     // Mostra o navegador
-    headless: false,
+    headless: true,
 
     // Desacelera as ações para facilitar a inspeção
     launchOptions: {
