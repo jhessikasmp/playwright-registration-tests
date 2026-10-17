@@ -46,6 +46,8 @@ test('CT-002: e-mail inválido', async ({ page }) => {
     const validade = await email.evaluate(campo => campo.validity.valid);
 
      expect(validade).toBe(false);
+
+     await expect(page.getByRole('alert')).toHaveText('');
 });
 
 test('CT-003: senha curta', async ({ page }) => {
@@ -70,5 +72,5 @@ test('CT-004: cadastro com dados válidos', async ({ page }) => {
 
     await page.getByRole('button', { name: 'Cadastrar' }).click();
 
-    await expect(page.getByRole('alert')).toHaveCount(1)
+    await expect(page.getByRole('alert')).toHaveText('Cadastro concluído com sucesso!');
 });
