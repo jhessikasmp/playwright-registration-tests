@@ -74,3 +74,29 @@ test('CT-004: cadastro com dados válidos', async ({ page }) => {
 
     await expect(page.getByRole('alert')).toHaveText('Cadastro concluído com sucesso!');
 });
+
+
+
+test('CT-005 - Deve impedir cadastro com senha vazia', async ({ page }) => {
+
+  await page.getByLabel('Nome').fill('Maria Silva');
+  await page.getByLabel('E-mail').fill('maria@email.com');
+
+  const submitDisparado = await page.locator('#cadastro-form').evaluate(form => {
+    form.addEventListener('submit', () => {
+      form.dataset.submitDisparado = 'true';
+    });
+
+    return true;
+  });
+
+  await page.getByRole('button', { name: 'Cadastrar' }).click();
+
+  const resultado = await page.locator('#cadastro-form').getAttribute('data-submit-disparado');
+
+  expect(resultado).toBeNull();
+  await expect(page.locator('#senha')).toBeEmpty();
+  const validadeSenha = await page.locator('#senha').evaluate(el => el.validity.valid);
+expect(validadeSenha).toBe(false);
+});
+
