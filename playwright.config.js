@@ -31,11 +31,6 @@ export default defineConfig({
     // Mostra o navegador
     headless: true,
 
-    // Desacelera as ações para facilitar a inspeção
-    launchOptions: {
-      slowMo: 500,
-    },
-
     // Grava trace na primeira nova tentativa
     trace: 'on-first-retry',
   },
@@ -56,6 +51,4 @@ export default defineConfig({
     },
   ],
 
-  // Não precisamos de webServer porque os testes usam
-  // o site público https://playwright.dev/
 });
